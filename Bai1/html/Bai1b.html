@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bai 1b</title>
+    <link
+      rel="stylesheet"
+      href="../../bootstrap-4.6.2-dist/css/bootstrap.min.css"
+    />
+    <script src="../../bootstrap-4.6.2-dist/js/jquery-3.7.1.min.js"></script>
+    <script src="../../bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+    <style>
+      [class*="col-"] {
+        margin: 0px auto;
+        padding: 0px;
+      }
+      .nen {
+        background-color: #3b599a;
+        color: white;
+      }
+      .anh {
+        width: 80%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .doDai {
+        width: 500px;
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        // Kiểm tra họ
+        function KiemTraHo() {
+          let ho = $("#ho").val();
+          if (ho.trim() === "") {
+            alert("Bạn chưa nhập họ!");
+            return false;
+          }
+          //Họ bắt đầu bằng chữ hoa
+          else if (!(/^([A-Z][a-z]*\s)*([A-Z][a-z]*)$/).test(ho)) {
+            alert("Họ phải bắt đầu bằng chữ hoa!");
+            return false;
+          }
+          return true;
+        }
+
+        // Kiểm tra tên
+        function KiemTraTen() {
+          let ten = $("#ten").val();
+          if (ten.trim() === "") {
+            alert("Bạn chưa nhập tên!");
+            return false;
+          } else if (!(/^[A-Z][a-z]*$/).test(ten)) {
+            alert("Tên phải bắt đầu bằng chữ hoa!");
+            return false;
+          }
+          return true;
+        }
+
+        // Kiểm tra email
+        function KiemTraEmail() {
+          let email = $("#mail").val();
+          if (email.trim() === "") {
+            alert("Bạn chưa nhập email!");
+            return false;
+          } else if (!(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/).test(email)) {
+            alert("Email không hợp lệ!");
+            return false;
+          }
+          return true;
+        }
+
+        // Kiểm tra nhập lại email
+        function KiemTraReEmail() {
+          let reEmail = $("#remail").val();
+          if (reEmail.trim() === "") {
+            alert("Bạn chưa nhập lại email!");
+            return false;
+          } else if (reEmail !== $("#mail").val()) {
+            alert("Email không trùng khớp!");
+            return false;
+          } 
+          return true;
+        }
+
+        // Kiểm tra mật khẩu phải có ký tự chữ, số và ít nhất là 6 ký tự
+        function KiemTraMatKhau() {
+          let matKhau = $("#mk").val();
+          if (matKhau.trim() === "") {
+            console.log(matKhau);
+            alert("Bạn chưa nhập mật khẩu!");
+            return false;
+          } else if (!(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/).test(matKhau)) {
+            alert("Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ và số!");
+            return false;
+          }
+          return true;
+        }
+
+        // Kiểm tra năm sinh phải <2002
+        function KiemTraNamSinh() {
+          let namSinh = $("#namSinh").val();
+          if (namSinh.trim() === "") {
+            alert("Bạn chưa nhập năm sinh!");
+            return false;
+          } else if (parseInt(namSinh) >= 2002) {
+            alert("Năm sinh phải nhỏ hơn 2002!");
+            return false;
+          }
+          return true;
+        }
+
+        // Xử lý sự kiện click của button "Đăng ký"
+        $("button").click(function () {
+          if (
+            KiemTraHo() &&
+            KiemTraTen() &&
+            KiemTraEmail() &&
+            KiemTraReEmail() &&
+            KiemTraMatKhau() &&
+            KiemTraNamSinh()
+          ) {
+            alert("Đăng ký thành công!");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container nen">
+      <div class="row">
+        <div class="col-2">
+          <img
+            src="../img/Facebook-logo.webp"
+            alt=""
+            width="100%"
+            height="100%"
+            style="object-fit: cover"
+          />
+        </div>
+        <div class="col-10">
+          <form action="" id="frmDN" class="float-right">
+            <label for="Email_SDT">Email hoặc số điện thoại</label>
+            <label for="matKhau" class="ml-3">Mật khẩu</label> <br />
+            <input type="text" name="dn" id="dn" />
+            <input type="password" name="" id="" />
+            <button class="bg-primary border-primary text-light" type="button">
+              Đăng nhập
+            </button>
+            <br />
+            <input type="checkbox" name="duytriDN" id="duytriDN" />Duy trì đăng
+            nhập
+            <a href="#" class="text-light ml-5">Quên mật khẩu</a>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <img src="../img/facebook_signup.png" alt="" class="anh" />
+        </div>
+
+        <div class="col-8">
+          <h1 class="mt-5">Đăng ký</h1>
+          <h3 class="mt-4">Miễn phí và sẽ luôn như vậy</h3>
+          <form action="" class="mt-4">
+            <input id="ho" class="" type="text" name="ho" placeholder="Họ" />
+            <input id="ten" class="" type="text" name="ten" placeholder="Tên" />
+            <br />
+            <input
+              id="mail"
+              class="doDai mt-3"
+              type="email"
+              name="mail"
+              placeholder="Email đăng nhập"
+            />
+            <br />
+            <input
+              id="remail"
+              class="doDai mt-3"
+              type="email"
+              name="remail"
+              placeholder="Nhập lại Email"
+            />
+            <br />
+            <input type="password" name="mk" id="mk" placeholder="Mật khẩu" class="doDai mt-3" />
+            <br />
+            <input
+              id="namSinh"
+              class="doDai mt-3"
+              type="text"
+              name="namSinh"
+              placeholder="Năm sinh"
+            />
+            <br />
+            <button type="button" class="btn btn-success mt-3">Đăng ký</button>
+            <br />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

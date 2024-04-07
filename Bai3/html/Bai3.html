@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bai 3</title>
+    <script src="../../bootstrap-4.6.2-dist/js/jquery-3.7.1.min.js"></script>
+    <script src="../../bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px auto;
+      }
+      .wrapper {
+        width: 600px;
+        height: 400px;
+        border: 1px solid;
+      }
+      form label {
+        width: 100px;
+        margin-top: 10px;
+        margin-left: 10px;
+        display: inline-block;
+      }
+      form input[type="text"],
+      select {
+        width: 250px;
+        height: 30px;
+      }
+      table {
+        margin-top: 10px;
+      }
+      button {
+        margin-left: 10px;
+        margin-top: 30px;
+        width: 100px;
+        height: 30px;
+      }
+      .err {
+        color: red;
+        font-style: italic;
+      }
+    </style>
+
+    <script>
+      $(document).ready(function () {
+        $("#hoTen").focus();
+        $("#btnDK").attr("disabled", true);
+
+        function KiemTraHoTen() {
+          let reg = /^([A-Z][a-z]*\s)+([A-Z][a-z]*)$/;
+          let ten = $("#hoTen").val();
+          if (reg.test(ten)) {
+            $(".err").html("(*)");
+            return true;
+          } else {
+            $(".err").html("Chữ hoa đầu mỗi từ");
+            return false;
+          }
+        }
+
+        function KiemTraRadio() {
+          if ($('input[name="loai"]:checked').val() == undefined) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+
+        function KiemTraSelect() {
+          if ($("#lop").val() == 0 || $("#monHoc").val() == 0) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+
+        function KiemTraForm() {
+          if (KiemTraHoTen() && KiemTraSelect() && KiemTraRadio()) {
+            $("#btnDK").attr("disabled", false);
+          } else {
+            $("#btnDK").attr("disabled", true);
+          }
+        }
+
+        // Xử lý sự kiện thay đổi của các trường input/select
+        $("#hoTen, input[name='loai'], #lop, #monHoc").change(function () {
+          KiemTraForm();
+        });
+
+        $("#btnDK").click(function (e) {
+          let hoTen = $("#hoTen").val();
+          let lop = $("#lop option:selected").text();
+          let monHoc = $("#monHoc option:selected").text();
+          let loai =
+            $('input[name="loai"]:checked').val() == 1
+              ? "Lý thuyết"
+              : "Thực hành";
+          let newRow =
+            "<tr> <td>" +
+            hoTen +
+            "</td> <td>" +
+            lop +
+            "</td> <td>" +
+            monHoc +
+            "</td> <td>" +
+            loai +
+            "</td> </tr>";
+        // let newRow = `<tr> <td>${hoTen}</td> <td>${lop}</td> <td>${monHoc}</td> <td>${loai}</td> </tr>`;
+            $("table tbody").append(newRow);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form action="">
+        <label for="hoTen">Họ tên :</label>
+        <input type="text" name="hoTen" id="hoTen" required /><span class="err"
+          >(*)</span
+        >
+        <br />
+        <label for="lop">Lớp :</label>
+        <select name="lop" id="lop">
+          <option value="1">Đại học Kỹ thuật phần mềm 9A</option>
+          <option value="2">Đại học Kỹ thuật phần mềm 10A</option>
+          <option value="3">Đại học Kỹ thuật phần mềm 11A</option>
+        </select>
+        <br />
+        <label for="monHoc">Môn học :</label>
+        <select name="monHoc" id="monHoc">
+          <option value="1">Lập trình hướng đối tượng</option>
+          <option value="2">Lập trình hướng sự kiện</option>
+          <option value="3">Lập trình phân tán</option>
+        </select>
+        <br />
+        <label for="loai">Loại :</label>
+        <input type="radio" name="loai" id="loai" value="1" />Lý thuyết
+        <input type="radio" name="loai" id="loai" value="2" />Thực hành <br />
+        <button type="button" id="btnDK">Đăng ký</button>
+      </form>
+      <table border="1" width="500">
+        <thead>
+          <tr>
+            <th>Họ tên</th>
+            <th>Lớp</th>
+            <th>Môn đăng ký</th>
+            <th>Loại</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>
